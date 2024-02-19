@@ -1,45 +1,45 @@
 //#define _CRT_SECURE_NO_WARNINGS 1
 //#include<iostream>
-//#include<string>//string���(cout)�ȵȵ�ʱ����Ҫʹ��
+//#include<string>//string输出(cout)等等的时候需要使用
 //using namespace std;
 //
-///*ģ���STL����ң����Ϣ����C++������P133*/
-///*ѧϰģ�壬��Ϊ����STL������ϵͳ�ṩ��ģ��*/
-///*��ģ��ʵ���������Ķ��󣬿�����Ϊ�����Ĳ���
-//���η�ʽ��
-//1.ָ����������ͣ���ʵ�ʿ�������ã���������	--- ֱ����ʾ�������������
-//2.����ģ�廯									--- �������еĲ�����Ϊģ����д���
-//3.������ģ�廯									--- �������������ģ�廯���д���
-//��2.��3.������ģ����Ϻ���ģ�壬��ʵ�ʿ������Եý�Ϊ���ӣ�*/
+///*模板和STL：《遥感信息处理C++基础》P133*/
+///*学习模板，是为了在STL中运用系统提供的模板*/
+///*类模板实例化出来的对象，可以作为函数的参数
+//传参方式：
+//1.指定传入的类型（在实际开发中最常用，最清晰）	--- 直接显示对象的数据类型
+//2.参数模板化									--- 将对象中的参数变为模板进行传递
+//3.整个类模板化									--- 将这个对象类型模板化进行传递
+//（2.与3.属于类模板配合函数模板，在实际开发中显得较为复杂）*/
 //
-//class Person1//��ͨ��
+//class Person1//普通类
 //{
 //public:
 //	void showPerson1()
 //	{
 //		cout << "showPerson1\n";
 //	}
-//	/*��ͨ���еĳ�Ա�����ڱ�����֮ǰ�Ϳ��Դ�������ģ���еĳ�Ա�����ڱ����õ�ʱ��ſ��Դ���*/
+//	/*普通类中的成员函数在被调用之前就可以创建，类模板中的成员函数在被调用的时候才可以创建*/
 //};
 //
-//class Person2//��ͨ��
+//class Person2//普通类
 //{
 //public:
 //	void showPerson2()
 //	{
 //		cout << "showPerson2\n";
 //	}
-//	/*��ͨ���еĳ�Ա�����ڱ�����֮ǰ�Ϳ��Դ�������ģ���еĳ�Ա�����ڱ����õ�ʱ��ſ��Դ���*/
+//	/*普通类中的成员函数在被调用之前就可以创建，类模板中的成员函数在被调用的时候才可以创建*/
 //};
 //
-//template<class T1, class T2>//����һ����ģ�壺��ߴ���ĸ����ԣ�����������Ҳ�����������������
-///*typename�����滻Ϊclass��Ч��һ�������滹�С���ģ�塱��*/
-//class Person//��ģ��
+//template<class T1, class T2>//声明一个类模板：提高代码的复用性，将数据类型也抽象出来（参数化）
+///*typename可以替换为class（效果一样，后面还有“类模板”）*/
+//class Person//类模板
 //{
 //public:
 //	T1 m_Name;
 //	T2 m_Age;
-//	/*��ͨ���еĳ�Ա�����ڴ������п�ʼʱ�Ϳ��Դ�������ģ���еĳ�Ա�����ڱ����õ�ʱ��ſ��Դ���*/
+//	/*普通类中的成员函数在代码运行开始时就可以创建，类模板中的成员函数在被调用的时候才可以创建*/
 //	Person(T1 name, T2 age)
 //	{
 //		this->m_Name = name;
@@ -52,9 +52,9 @@
 //	}
 //};
 //
-//template<class TName, class TAge = int>//����һ����ģ�壺��ߴ���ĸ����ԣ�����������Ҳ�����������������
-///*ע�⣺����ģ�岻������������Ĭ�ϵ���������*/
-//class Person_DefaultDataType//��ģ�壬����Ĭ�ϵ���������
+//template<class TName, class TAge = int>//声明一个类模板：提高代码的复用性，将数据类型也抽象出来（参数化）
+///*注意：函数模板不能像这样带有默认的数据类型*/
+//class Person_DefaultDataType//类模板，含有默认的数据类型
 //{
 //public:
 //	TName m_Name;
@@ -71,64 +71,64 @@
 //	}
 //};
 //
-//void printPerson1(Person<string, int>& p1)//1.ָ���������ͣ�ֱ�Ӱ�ģ��Ĳ����б������ش��뵽�����Ĳ����б����У���ʵ�ʿ�������ã���������
+//void printPerson1(Person<string, int>& p1)//1.指定传入类型：直接把模板的参数列表完整地传入到函数的参数列表当中（在实际开发中最常用，最清晰）
 //{
 //	p1.showPerson();
 //}
 //
 //template<class T1, class T2>
-//void printPerson2(Person<T1, T2>& p2)//2.����ģ�廯
+//void printPerson2(Person<T1, T2>& p2)//2.参数模板化
 //{	
-//	/*����ѧϰһ�£�����������ô�Ƶ�T�������������͵ģ�������ʾ������*/
-//	cout << "�Ƶ�����T1����������Ϊ��" << typeid(T1).name() << endl;//����Ƶ�����������������string����ʽ��ʾ����
-//	cout << "�Ƶ�����T2����������Ϊ��" << typeid(T2).name() << endl;//����Ƶ�����������������string����ʽ��ʾ����
-//	/*������һ������ʹ�� typeid ������ʱ���㽫�õ�һ�� type_info ��Ķ����ָ�루ע�⵽����T��Ҳ�Ǳ����Ϊ�����̡��ģ����ö�������˹������͵���ϸ��Ϣ��*/
-//	/*�Ƶ�����T1����������Ϊ��class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >
-//					��ע�⵽��				   string��
-//	  �Ƶ�����T2����������Ϊ��int
+//	/*这里学习一下：编译器是怎么推导T代表的数据类型的？可以显示出来：*/
+//	cout << "推导出的T1的数据类型为：" << typeid(T1).name() << endl;//会把推导出来的数据类型以string的形式显示出来
+//	cout << "推导出的T2的数据类型为：" << typeid(T2).name() << endl;//会把推导出来的数据类型以string的形式显示出来
+//	/*（当对一个对象使用 typeid 操作符时，你将得到一个 type_info 类的对象的指针（注意到：“T”也是被标记为“类绿”的），该对象包含了关于类型的详细信息）*/
+//	/*推导出的T1的数据类型为：class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >
+//					（注意到：				   string）
+//	  推导出的T2的数据类型为：int
 //	
-//	���Կ���������һ�� ��ң����Ϣ����C++������P102��
-//	C++���ַ����ࣨ��VS 2022���ԡ����̡���ʾ����string��ȫ���ǳ���*/
+//	可以看见：（大一下 《遥感信息处理C++基础》P102）
+//	C++的字符串类（在VS 2022中以“类绿”显示）：string的全名非常长*/
 //
 //	p2.showPerson();
 //}
 //
 //template<class T>
-//void printPerson3(T& p3)//3.��������Person����ģ�廯����ʱ�򴫲δ�����һ��Person��
+//void printPerson3(T& p3)//3.把整个类Person都给模板化，到时候传参传进来一个Person类
 //{
-//	/*����ѧϰһ�£�����������ô�Ƶ�T�������������͵ģ�������ʾ������*/
-//	cout << "�Ƶ�����T����������Ϊ��" << typeid(T).name() << endl;//����Ƶ�����������������string����ʽ��ʾ����
-//	/*������һ������ʹ�� typeid ������ʱ���㽫�õ�һ�� type_info ��Ķ����ָ�루ע�⵽����T��Ҳ�Ǳ����Ϊ�����̡��ģ����ö�������˹������͵���ϸ��Ϣ��*/
-//	/*�Ƶ�����T����������Ϊ��class Person<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,int>
-//					ע�⵽�� class Person				   string																  int*/
+//	/*这里学习一下：编译器是怎么推导T代表的数据类型的？可以显示出来：*/
+//	cout << "推导出的T的数据类型为：" << typeid(T).name() << endl;//会把推导出来的数据类型以string的形式显示出来
+//	/*（当对一个对象使用 typeid 操作符时，你将得到一个 type_info 类的对象的指针（注意到：“T”也是被标记为“类绿”的），该对象包含了关于类型的详细信息）*/
+//	/*推导出的T的数据类型为：class Person<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,int>
+//					注意到： class Person				   string																  int*/
 //	
 //	p3.showPerson();
 //}
 //
 //void test1()
 //{
-//	Person<string, int>p1("��Сң", 18);
-//	/*<>������ģ��Ĳ����б�
-//	��ģ�岻������ģ�����������Զ������Ƶ���<>�Լ��������ģ��Ĳ����б��ز����١�
-//	���磺Person p1("��Сң", 18);����д�Ǵ����*/
+//	Person<string, int>p1("珞小遥", 18);
+//	/*<>里面是模板的参数列表
+//	类模板不能像函数模板那样进行自动类型推导，<>以及里面的类模板的参数列表必不可少。
+//	例如：Person p1("珞小遥", 18);这样写是错误的*/
 //	printPerson1(p1);
 //}
 //
 //void test2()
 //{
-//	Person<string, int>p2("����С��", 18);
-//	/*<>������ģ��Ĳ����б�
-//	��ģ�岻������ģ�����������Զ������Ƶ���<>�Լ��������ģ��Ĳ����б��ز����١�
-//	���磺Person p1("��Сң", 18);����д�Ǵ����*/
+//	Person<string, int>p2("樱花小帮", 18);
+//	/*<>里面是模板的参数列表
+//	类模板不能像函数模板那样进行自动类型推导，<>以及里面的类模板的参数列表必不可少。
+//	例如：Person p1("珞小遥", 18);这样写是错误的*/
 //	printPerson2(p2);
 //}
 //
 //void test3()
 //{
-//	Person<string, int>p3("��С��", 18);
-//	/*<>������ģ��Ĳ����б�
-//	��ģ�岻������ģ�����������Զ������Ƶ���<>�Լ��������ģ��Ĳ����б��ز����١�
-//	���磺Person p1("��Сң", 18);����д�Ǵ����*/
+//	Person<string, int>p3("华小科", 18);
+//	/*<>里面是模板的参数列表
+//	类模板不能像函数模板那样进行自动类型推导，<>以及里面的类模板的参数列表必不可少。
+//	例如：Person p1("珞小遥", 18);这样写是错误的*/
 //	printPerson3(p3);
 //}
 //
